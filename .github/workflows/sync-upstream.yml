@@ -1,0 +1,33 @@
+name: Sync Upstream
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */6 * * *"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Update package
+        run: ./scripts/update-upstream.sh
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: automation/sync-upstream
+          commit-message: "chore: sync lean-ctx upstream"
+          title: "chore: sync lean-ctx upstream"
+          body: |
+            Automated upstream sync for `yvgude/lean-ctx`.
+          delete-branch: true
