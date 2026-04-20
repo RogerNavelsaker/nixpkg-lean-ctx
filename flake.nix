@@ -10,22 +10,25 @@
     utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
+        upstreamSrc = pkgs.fetchFromGitHub {
+          owner = "yvgude";
+          repo = "lean-ctx";
+          rev = "daa9a09bb0449792b038678f0a29af418c9171b1";
+          hash = "sha256-Dx3WSu7AQ+aq67DBw6/2riuHBEJSZAMbZyIz3ZiyzVc=";
+        };
+        packageSrc = pkgs.runCommand "lean-ctx-3.2.8-src" { } ''
+          mkdir -p "$out"
+          cp -R ${upstreamSrc}/rust/. "$out/"
+        '';
       in
       {
         packages.default = pkgs.rustPlatform.buildRustPackage {
           pname = "lean-ctx";
-          version = "3.2.5";
+          version = "3.2.8";
 
-          src = pkgs.fetchFromGitHub {
-            owner = "yvgude";
-            repo = "lean-ctx";
-            rev = "f118538ad7035beaf6b40945a273c8b5c4d8b375";
-            hash = "sha256-3jGOSM35sk3V52t/ZZ31C13czm/cBqmv/+kfE+1DaYU=";
-          };
+          src = packageSrc;
 
-          sourceRoot = "source/rust";
-
-          cargoHash = "sha256-NKAWhxt5Re+KdImCV48hfRXQVDomGvAhW2G+PRNPM/I=";
+          cargoHash = "sha256-6cKC3fDo1aN7Eq0+LcQrLS+r4geuxT1sDbe5hbONFY8=";
 
           nativeBuildInputs = [ pkgs.pkg-config pkgs.perl ];
           buildInputs = [ pkgs.openssl pkgs.zlib ];
