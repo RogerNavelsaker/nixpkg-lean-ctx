@@ -51,10 +51,10 @@ replace_attr hash "$src_hash"
 replace_attr cargoHash "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
 
 build_log="$tmpdir/build.log"
-if nix build "$repo_root#default" >"$tmpdir/build.out" 2>"$build_log"; then
+if nix --accept-flake-config build "$repo_root#default" --no-link 2>&1 | tee "$build_log"; then
   echo "cargoHash already valid"
 else
-  cargo_hash="$(sed -n 's/.*got:[[:space:]]*//p' "$build_log" | tail -n 1)"
+  cargo_hash="$(grep -o 'sha256-[a-zA-Z0-9+/=]*' "$build_log" | tail -n 1)"
   if [[ -z "$cargo_hash" ]]; then
     echo "failed to derive cargoHash from nix build output" >&2
     cat "$build_log" >&2
@@ -63,6 +63,6 @@ else
   replace_attr cargoHash "$cargo_hash"
 fi
 
-nix build "$repo_root#default" >/dev/null
+nix --accept-flake-config build "$repo_root#default" >/dev/null
 
 echo "Updated lean-ctx to ${latest_tag} (${rev})"

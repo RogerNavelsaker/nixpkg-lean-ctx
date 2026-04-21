@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   sync:
@@ -16,18 +15,14 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
 
       - name: Update package
         run: ./scripts/update-upstream.sh
         env:
           GH_TOKEN: ${{ github.token }}
 
-      - name: Create pull request
-        uses: peter-evans/create-pull-request@v7
+      - name: Automatic sync
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          branch: automation/sync-upstream
-          commit-message: "chore: sync lean-ctx upstream"
-          title: "chore: sync lean-ctx upstream"
-          body: |
-            Automated upstream sync for `yvgude/lean-ctx`.
-          delete-branch: true
+          commit_message: "chore: sync lean-ctx upstream"
