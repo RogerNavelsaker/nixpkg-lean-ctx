@@ -13,8 +13,8 @@
         upstreamSrc = pkgs.fetchFromGitHub {
           owner = "yvgude";
           repo = "lean-ctx";
-          rev = "0472266e9a8e9ff7256579309a1f6347877e2e7f";
-          hash = "sha256-hlOfCXvyDj+PrVE/oPDBdf2utK3ruzc8Fu6ZEtwh5YY=";
+          rev = "3b93661069c7180aef0fbe0167d6f4fff22a92b5";
+          hash = "sha256-TojE5Jn6lM2zEOmXnKxU1X5KwBXtK/gD/qxYwdVBsqc=";
         };
         packageSrc = pkgs.runCommand "lean-ctx-3.2.8-src" { } ''
           mkdir -p "$out"
