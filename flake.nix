@@ -13,8 +13,8 @@
         upstreamSrc = pkgs.fetchFromGitHub {
           owner = "yvgude";
           repo = "lean-ctx";
-          rev = "443adb6ff9af80a227ddc063e1ba4563b1ec8c09";
-          hash = "sha256-EhUMXsQYnhmNHwaVPDfGJWWmkrHB12TVSknr7s3gCMg=";
+          rev = "5f75e3cf6d6ce4ee6c1697557a83d78bcb8d344a";
+          hash = "sha256-pohJq/fpf7389C+oO4DgQxdWsiBcY1RrQSaB6wEtLVY=";
         };
         packageSrc = pkgs.runCommand "lean-ctx-3.2.8-src" { } ''
           mkdir -p "$out"
@@ -24,11 +24,11 @@
       {
         packages.default = pkgs.rustPlatform.buildRustPackage {
           pname = "lean-ctx";
-          version = "3.6.10";
+          version = "3.6.11";
 
           src = packageSrc;
 
-          cargoHash = "sha256-WBZfpmPcLt8VTlPn+md0f5muK8GbANdTm8GytMwwXGk=";
+          cargoHash = "sha256-b1e/spQI6H75qI4D3jZgKWGXWhrLADenuHK2OtXrQRA=";
 
           nativeBuildInputs = [ pkgs.pkg-config pkgs.perl ];
           buildInputs = [ pkgs.openssl pkgs.zlib ];
