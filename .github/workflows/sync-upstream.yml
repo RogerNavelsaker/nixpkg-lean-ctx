@@ -17,12 +17,10 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
 
-      - name: Update package
-        run: ./scripts/update-upstream.sh
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Run nix-update
+        run: nix run nixpkgs#nix-update -- --flake
 
       - name: Automatic sync
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: sync lean-ctx upstream"
+          commit_message: "chore: sync upstream using nix-update"
