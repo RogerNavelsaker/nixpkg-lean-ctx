@@ -17,10 +17,17 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
 
-      - name: Run nix-update
-        run: nix run nixpkgs#nix-update -- --flake
+      - name: Standardized Sync
+        run: |
+          if [ -f "./update.sh" ]; then
+            chmod +x ./update.sh && ./update.sh
+          elif [ -f "package.json" ] && grep -q '"sync:source"' package.json; then
+            nix shell nixpkgs#bun -c sh -c 'bun install && bun run sync:source'
+          else
+            nix run nixpkgs#nix-update -- --flake default
+          fi
 
       - name: Automatic sync
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: sync upstream using nix-update"
+          commit_message: "chore: standardize upstream sync workflow"
