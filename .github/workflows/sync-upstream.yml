@@ -15,7 +15,6 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: DeterminateSystems/nix-installer-action@main
-      - uses: DeterminateSystems/magic-nix-cache-action@main
 
       - name: Standardized Sync
         run: |
@@ -30,4 +29,4 @@ jobs:
       - name: Automatic sync
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: standardize upstream sync workflow"
+          commit_message: "chore: remove magic-nix-cache to fix flakehub auth"
