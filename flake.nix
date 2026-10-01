@@ -50,6 +50,7 @@
           buildInputs = [ pkgs.openssl pkgs.zlib ];
 
           doCheck = false;
+          RUSTFLAGS = "-C target-feature=-avx512vnni";
 
           meta = with pkgs.lib; {
             description = "Hybrid Context Optimizer for LLMs";
