@@ -51,6 +51,9 @@
 
           doCheck = false;
 
+          # rten-gemm's AVX-512 VNNI code is incompatible with LLVM 21.
+          RUSTFLAGS = "-C target-cpu=x86-64";
+
           meta = with pkgs.lib; {
             description = "Hybrid Context Optimizer for LLMs";
             homepage = "https://github.com/yvgude/lean-ctx";
