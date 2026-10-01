@@ -51,8 +51,8 @@
 
           doCheck = false;
 
-          # rten-gemm's AVX-512 VNNI code is incompatible with LLVM 21; Rust 1.97 uses LLVM 20.
-          RUSTFLAGS = "-C target-cpu=generic -C target-feature=-avx512f,-avx512vnni,-avx512vnniint8,-avx512vnniint16,-avxvnni,-avxvnniint8,-avx512bw";
+          # rten-gemm's AVX-512 VNNI code is incompatible with LLVM 21; build for a baseline x86-64 target.
+          RUSTFLAGS = "-C target-cpu=x86-64 -C target-feature=-avx512f,-avx512vnni,-avxvnni,-avx512bw";
 
           meta = with pkgs.lib; {
             description = "Hybrid Context Optimizer for LLMs";
