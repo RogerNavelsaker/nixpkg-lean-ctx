@@ -52,7 +52,7 @@
           doCheck = false;
 
           # rten-gemm's AVX-512 VNNI code is incompatible with LLVM 21; use a generic target.
-          RUSTFLAGS = "-C target-cpu=generic -C target-feature=-avx512f,-avx512vnni,-avx512vnniint8,-avxvnni,-avxvnniint8,-avx512bw";
+          RUSTFLAGS = "-C target-cpu=generic -C target-feature=-avx512f,-avx512vnni,-avxvnni,-avxvnniint8,-avx512bw";
 
           meta = with pkgs.lib; {
             description = "Hybrid Context Optimizer for LLMs";
