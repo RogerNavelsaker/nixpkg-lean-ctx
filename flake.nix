@@ -51,8 +51,13 @@
 
           doCheck = false;
 
-          # rten-gemm's AVX-512 VNNI code is incompatible with LLVM 21; build for a baseline x86-64 target.
-          RUSTFLAGS = "-C target-cpu=generic -C target-feature=-avx512f,-avx512vnni,-avx512vnniint8,-avx512vnniint16,-avxvnni,-avxvnniint8,-avx512bw";
+          # rten-gemm's AVX-512 VNNI code is incompatible with LLVM 21. Keep
+          # embeddings disabled until rten-gemm supports this compiler.
+          buildNoDefaultFeatures = true;
+          buildFeatures = [ "tree-sitter" "http-server" "secure-update" "jemalloc" ];
+          # Build for a baseline target as well, avoiding optional SIMD code.
+          RUSTFLAGS = "-C target-cpu=generic -C target-feature=-avx512f,-avx512vnni,-avxvnni,-avxvnniint8,-avx512bw";
+          CARGO_BUILD_RUSTFLAGS = "-C target-cpu=generic -C target-feature=-avx512f,-avx512vnni,-avxvnni,-avxvnniint8,-avx512bw";
 
           meta = with pkgs.lib; {
             description = "Hybrid Context Optimizer for LLMs";
