@@ -38,7 +38,7 @@
         '';
       in
       {
-        packages.default = pkgs.rustPackages_1_98.rustPlatform.buildRustPackage {
+        packages.default = pkgs.rustPackages_1_96.rustPlatform.buildRustPackage {
           pname = "lean-ctx";
           version = "3.6.21";
 
