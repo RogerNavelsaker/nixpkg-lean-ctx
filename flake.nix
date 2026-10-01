@@ -38,7 +38,7 @@
         '';
       in
       {
-        packages.default = pkgs.rustPackages_1_98.rustPlatform.buildRustPackage {
+        packages.default = pkgs.rustPackages_1_97.rustPlatform.buildRustPackage {
           pname = "lean-ctx";
           version = "3.6.21";
 
@@ -52,8 +52,7 @@
           doCheck = false;
 
           # rten-gemm's AVX-512 VNNI code is incompatible with LLVM 21; build for a baseline x86-64 target.
-          RUSTFLAGS = "-C target-cpu=x86-64 -C target-feature=-avx512f,-avx512vnni,-avx512vnniint8,-avx512vnniint16,-avxvnni,-avxvnniint8,-avx512bw";
-          CARGO_BUILD_RUSTFLAGS = "-C target-cpu=x86-64 -C target-feature=-avx512f,-avx512vnni,-avx512vnniint8,-avx512vnniint16,-avxvnni,-avxvnniint8,-avx512bw";
+          RUSTFLAGS = "-C target-cpu=generic -C target-feature=-avx512f,-avx512vnni,-avx512vnniint8,-avx512vnniint16,-avxvnni,-avxvnniint8,-avx512bw";
 
           meta = with pkgs.lib; {
             description = "Hybrid Context Optimizer for LLMs";
