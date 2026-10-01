@@ -38,7 +38,7 @@
         '';
       in
       {
-        packages.default = pkgs.rustPackages_1_97.rustPlatform.buildRustPackage {
+        packages.default = pkgs.rustPackages_1_98.rustPlatform.buildRustPackage {
           pname = "lean-ctx";
           version = "3.6.21";
 
@@ -51,7 +51,7 @@
 
           doCheck = false;
 
-          # rten-gemm's AVX-512 VNNI code is incompatible with LLVM 21; Rust 1.97 uses LLVM 20.
+          # rten-gemm's AVX-512 VNNI code is incompatible with LLVM 21; use a generic target.
           RUSTFLAGS = "-C target-cpu=generic -C target-feature=-avx512f,-avx512vnni,-avx512vnniint8,-avxvnni,-avxvnniint8,-avx512bw";
 
           meta = with pkgs.lib; {
