@@ -50,7 +50,8 @@
           buildInputs = [ pkgs.openssl pkgs.zlib ];
 
           doCheck = false;
-          RUSTFLAGS = "-C target-cpu=x86-64 -C target-feature=-avx512f,-avx512vnni,-avx512bw";
+          # rten-gemm's AVX-512 VNNI code is incompatible with LLVM 21.
+          RUSTFLAGS = "-C target-cpu=x86-64";
 
           meta = with pkgs.lib; {
             description = "Hybrid Context Optimizer for LLMs";
