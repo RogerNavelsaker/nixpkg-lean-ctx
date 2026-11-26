@@ -2,3 +2,10 @@
 inputs:
   nixpkgs:
     url: github:cachix/devenv-nixpkgs/rolling
+  multiverse:
+    url: github:fzakaria/nixpkgs-multiverse
+  roger-navelsaker:
+    url: github:RogerNavelsaker/nixpkgs/929494d31152559e50e473b03120b86043b18a1e
+    inputs:
+      nixpkgs:
+        follows: nixpkgs
