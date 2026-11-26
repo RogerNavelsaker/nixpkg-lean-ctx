@@ -49,6 +49,12 @@
           nativeBuildInputs = [ pkgs.pkg-config pkgs.perl ];
           buildInputs = [ pkgs.openssl pkgs.zlib pkgs.zstd ];
 
+          # cargo-setup-hook exports JEMALLOC_OVERRIDE to a nonexistent sentinel path;
+          # clear it so tikv-jemalloc-sys builds jemalloc from its vendored source.
+          preBuild = ''
+            unset JEMALLOC_OVERRIDE
+          '';
+
           doCheck = false;
 
           meta = with pkgs.lib; {
