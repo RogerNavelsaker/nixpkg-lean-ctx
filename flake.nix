@@ -47,7 +47,7 @@
           cargoHash = "sha256-ptCccBQVkzy9n9pj3NJu+DOjP4q+Ir9YdHufT2TJLhA=";
 
           nativeBuildInputs = [ pkgs.pkg-config pkgs.perl ];
-          buildInputs = [ pkgs.openssl pkgs.zlib ];
+          buildInputs = [ pkgs.openssl pkgs.zlib pkgs.zstd ];
 
           doCheck = false;
 
