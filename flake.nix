@@ -47,7 +47,7 @@
           cargoHash = "sha256-ptCccBQVkzy9n9pj3NJu+DOjP4q+Ir9YdHufT2TJLhA=";
 
           nativeBuildInputs = [ pkgs.pkg-config pkgs.perl ];
-          buildInputs = [ pkgs.openssl pkgs.zlib pkgs.zstd ];
+          buildInputs = [ pkgs.openssl pkgs.zlib pkgs.zstd pkgs.sqlite ];
 
           # cargo-setup-hook exports JEMALLOC_OVERRIDE to a nonexistent sentinel path;
           # clear it so tikv-jemalloc-sys builds jemalloc from its vendored source.
