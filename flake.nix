@@ -29,30 +29,27 @@
         upstreamSrc = pkgs.fetchFromGitHub {
           owner = "yvgude";
           repo = "lean-ctx";
-          rev = "0330d1e3ebe1782f8ef5f9f29668bad0759f10ce";
-          hash = "sha256-EiQZXUmk62SEAvWvqaf+63IuyZprGORJxQLsCEw1L4A=";
+          rev = "b1a502e27c91f2e588d24bf6deff59556c1ebeb2";
+          hash = "sha256-f0CfIKLAvJv/DAwk/n8+HnpjFEY8Fpwkni9YslD51QQ=";
         };
-        packageSrc = pkgs.runCommand "lean-ctx-3.2.8-src" { } ''
-          mkdir -p "$out"
-          cp -R ${upstreamSrc}/rust/. "$out/"
-        '';
       in
       {
         packages.default = pkgs.rustPlatform.buildRustPackage {
           pname = "lean-ctx";
-          version = "3.6.21";
+          version = "3.12.7";
 
-          src = packageSrc;
+          src = upstreamSrc;
+          sourceRoot = "${upstreamSrc.name}/rust";
 
-          cargoHash = "sha256-ptCccBQVkzy9n9pj3NJu+DOjP4q+Ir9YdHufT2TJLhA=";
+          cargoHash = "sha256-DCopd5zeP+HT/bG35FR0la2twV3r16FaE6G2sSxy9UA=";
 
-          nativeBuildInputs = [ pkgs.pkg-config pkgs.perl ];
+          nativeBuildInputs = [ pkgs.pkg-config pkgs.perl pkgs.cmake ];
           buildInputs = [ pkgs.openssl pkgs.zlib pkgs.zstd pkgs.sqlite ];
 
           # cargo-setup-hook exports JEMALLOC_OVERRIDE to a nonexistent sentinel path;
           # clear it so tikv-jemalloc-sys builds jemalloc from its vendored source.
           preBuild = ''
-            unset JEMALLOC_OVERRIDE
+            unset JEMALLOC_OVERRIDE AWS_LC_SYS_USE_SYSTEM
           '';
 
           doCheck = false;
