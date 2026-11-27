@@ -1,0 +1,10 @@
+{
+  "kind": "github-release",
+  "upstream": "yvgude/lean-ctx",
+  "tag_prefix": "v",
+  "version_file": "flake.nix",
+  "version_grep": "version = \"[^\"]+\"",
+  "pinned_paths": [],
+  "pinned_flake_regex": "rev = |hash = |cargoHash",
+  "sync_script": "bash scripts/update-upstream.sh"
+}
