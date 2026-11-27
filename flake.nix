@@ -29,19 +29,19 @@
         upstreamSrc = pkgs.fetchFromGitHub {
           owner = "yvgude";
           repo = "lean-ctx";
-          rev = "b1a502e27c91f2e588d24bf6deff59556c1ebeb2";
-          hash = "sha256-f0CfIKLAvJv/DAwk/n8+HnpjFEY8Fpwkni9YslD51QQ=";
+          rev = "527aca5d41a904efbbc70c006d4f64b1436f2f13";
+          hash = "sha256-KaZSf5WDCmcsqnYp5mVMQKse0L9eN+P9OfKZqlwrN3g=";
         };
       in
       {
         packages.default = pkgs.rustPlatform.buildRustPackage {
           pname = "lean-ctx";
-          version = "3.12.7";
+          version = "3.12.8";
 
           src = upstreamSrc;
           sourceRoot = "${upstreamSrc.name}/rust";
 
-          cargoHash = "sha256-DCopd5zeP+HT/bG35FR0la2twV3r16FaE6G2sSxy9UA=";
+          cargoHash = "sha256-aRqlfQ6jDcNPZ0m1pAiatJ6Wl7UOQlYO13xdvpSFTa4=";
 
           nativeBuildInputs = [ pkgs.pkg-config pkgs.perl pkgs.cmake ];
           buildInputs = [ pkgs.openssl pkgs.zlib pkgs.zstd pkgs.sqlite ];
